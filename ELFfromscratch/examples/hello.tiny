@@ -1,0 +1,3 @@
+# Simple program - exits with 42
+let answer = 6 * 7
+exit answer

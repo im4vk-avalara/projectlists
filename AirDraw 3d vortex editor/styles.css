@@ -1,0 +1,664 @@
+/**
+ * AirDraw Blueprint - Styles
+ * Blueprint-themed CSS for the hand-tracking CAD application
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0a1628;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#app {
+  position: relative;
+  width: 1280px;
+  height: 720px;
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+/* Hidden video element for webcam */
+#webcam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Main canvas */
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 40px rgba(0, 150, 255, 0.3);
+}
+
+/* Loading overlay */
+#loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 22, 40, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  transition: opacity 0.5s ease;
+}
+
+#loading.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#loading p {
+  color: #00d4ff;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+#loading .subtitle {
+  color: #7799bb;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Loader animation */
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(0, 212, 255, 0.2);
+  border-top-color: #00d4ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Instructions panel */
+#instructions {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(10, 22, 40, 0.97);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 12px;
+  padding: 25px 30px;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 0 30px rgba(0, 150, 255, 0.2);
+}
+
+#instructions.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#instructions.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#instructions h2 {
+  color: #00d4ff;
+  font-size: 28px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#instructions > p {
+  color: #aaccee;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+#instructions h3 {
+  color: #7799bb;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+  padding-bottom: 5px;
+}
+
+#instructions ul {
+  list-style: none;
+  color: #ddeeff;
+  font-size: 14px;
+}
+
+#instructions li {
+  padding: 5px 0;
+  padding-left: 15px;
+  position: relative;
+}
+
+#instructions li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: #00d4ff;
+}
+
+#instructions strong {
+  color: #00d4ff;
+}
+
+#instructions kbd {
+  background: rgba(0, 212, 255, 0.15);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-family: monospace;
+  font-size: 12px;
+  color: #00d4ff;
+}
+
+/* Gesture guide styles */
+.gesture-guide {
+  margin-bottom: 20px;
+}
+
+.gesture-guide h3 {
+  color: #00d4ff;
+  font-size: 14px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+  padding-bottom: 5px;
+}
+
+.gesture-row {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.gesture-item {
+  background: rgba(0, 100, 150, 0.2);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  flex: 1;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.gesture-item.draw {
+  border-color: rgba(255, 100, 100, 0.4);
+  background: rgba(255, 50, 50, 0.1);
+}
+
+.gesture-item.hover {
+  border-color: rgba(100, 255, 100, 0.4);
+  background: rgba(50, 255, 50, 0.1);
+}
+
+.gesture-icon {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.gesture-label {
+  font-size: 11px;
+  color: #7799bb;
+  font-weight: bold;
+}
+
+.gesture-desc {
+  font-size: 10px;
+  color: #aaccee;
+  margin-top: 5px;
+}
+
+.gesture-desc strong {
+  color: #00d4ff;
+}
+
+.shape-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.shape-item {
+  background: rgba(0, 100, 150, 0.15);
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.shape-icon {
+  font-size: 20px;
+  color: #00d4ff;
+  width: 40px;
+  text-align: center;
+}
+
+.shape-desc {
+  font-size: 11px;
+  color: #aaccee;
+}
+
+.shape-desc strong {
+  color: #00d4ff;
+}
+
+.quick-tips {
+  background: rgba(255, 200, 50, 0.1);
+  border: 1px solid rgba(255, 200, 50, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 15px;
+}
+
+.quick-tips h3 {
+  color: #ffcc00;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.quick-tips ul {
+  list-style: none;
+}
+
+.quick-tips li {
+  font-size: 11px;
+  color: #ddeeff;
+  padding: 3px 0;
+  padding-left: 0;
+}
+
+.quick-tips li::before {
+  content: '';
+}
+
+#start-btn {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #00a8cc 0%, #0066ff 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+#start-btn:hover {
+  background: linear-gradient(135deg, #00c4ee 0%, #0088ff 100%);
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+#start-btn:active {
+  transform: translateY(0);
+}
+
+.hint {
+  text-align: center;
+  font-size: 11px;
+  color: #7799bb;
+  margin-top: 10px;
+}
+
+.hint kbd {
+  background: rgba(0, 212, 255, 0.2);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 3px;
+  padding: 2px 6px;
+  color: #00d4ff;
+}
+
+/* Mode selector */
+.mode-selector {
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.mode-selector h3 {
+  color: #00d4ff;
+  font-size: 12px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mode-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 15px 10px;
+  background: rgba(0, 50, 100, 0.3);
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.mode-btn:hover {
+  background: rgba(0, 100, 150, 0.4);
+  border-color: rgba(0, 212, 255, 0.6);
+}
+
+.mode-btn.active {
+  background: rgba(0, 150, 200, 0.4);
+  border-color: #00d4ff;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+.mode-icon {
+  font-size: 24px;
+}
+
+.mode-label {
+  color: #ddeeff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.mode-btn.active .mode-label {
+  color: #00d4ff;
+}
+
+/* 3D Tutorial panel */
+#tutorial-3d {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 8px;
+  padding: 15px;
+  max-width: 320px;
+  z-index: 30;
+  display: none;
+}
+
+#tutorial-3d.visible {
+  display: block;
+}
+
+#tutorial-3d h3 {
+  color: #00d4ff;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+#tutorial-3d .step {
+  margin: 8px 0;
+  padding: 8px 10px;
+  background: rgba(0, 100, 150, 0.2);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#tutorial-3d .step-num {
+  font-size: 20px;
+  background: transparent;
+  width: auto;
+  height: auto;
+}
+
+#tutorial-3d .step-text {
+  font-size: 12px;
+  color: #ddeeff;
+}
+
+#tutorial-3d .step-text strong {
+  color: #00d4ff;
+}
+
+.keyboard-shortcuts-3d {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.keyboard-shortcuts-3d p {
+  font-size: 10px;
+  color: #7799bb;
+  margin: 4px 0;
+}
+
+.keyboard-shortcuts-3d kbd {
+  background: rgba(0, 212, 255, 0.15);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 9px;
+  color: #00d4ff;
+}
+
+/* 3D Canvas styling */
+#canvas3d {
+  border-radius: 8px;
+}
+
+#hud-canvas {
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1300px) {
+  #app {
+    width: 100vw;
+    height: 56.25vw; /* 16:9 aspect ratio */
+    max-height: 100vh;
+  }
+}
+
+@media (max-width: 600px) {
+  #instructions {
+    padding: 20px;
+    max-width: 90%;
+  }
+  
+  #instructions h2 {
+    font-size: 22px;
+  }
+  
+  #instructions ul {
+    font-size: 12px;
+  }
+}
+
+/* Tutorial overlay */
+#tutorial-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 22, 40, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#tutorial-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tutorial-content {
+  text-align: center;
+  max-width: 600px;
+}
+
+.tutorial-section h3 {
+  color: #00d4ff;
+  font-size: 24px;
+  margin-bottom: 25px;
+}
+
+.tutorial-steps {
+  text-align: left;
+  margin: 0 auto;
+  max-width: 450px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+  padding: 10px 15px;
+  background: rgba(0, 100, 150, 0.2);
+  border-radius: 8px;
+  border-left: 3px solid #00d4ff;
+}
+
+.step-num {
+  background: #00d4ff;
+  color: #0a1628;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.step-text {
+  color: #ddeeff;
+  font-size: 14px;
+}
+
+.step-text strong {
+  color: #00d4ff;
+}
+
+.step-text .red {
+  color: #ff6464;
+  font-weight: bold;
+}
+
+.step-text .green {
+  color: #64ff64;
+  font-weight: bold;
+}
+
+.tutorial-shapes {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.shape-demo {
+  text-align: center;
+}
+
+.shape-visual {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 10px;
+  border: 2px solid #00d4ff;
+  position: relative;
+}
+
+.line-demo {
+  border: none;
+  background: linear-gradient(135deg, transparent 48%, #00d4ff 48%, #00d4ff 52%, transparent 52%);
+}
+
+.rect-demo {
+  border-radius: 4px;
+}
+
+.circle-demo {
+  border-radius: 50%;
+}
+
+.shape-demo span {
+  color: #aaccee;
+  font-size: 11px;
+}
+
+.tutorial-dismiss {
+  margin-top: 30px;
+  color: #7799bb;
+  font-size: 12px;
+}
+
+.tutorial-dismiss kbd {
+  background: rgba(0, 212, 255, 0.2);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 3px;
+  padding: 3px 8px;
+  color: #00d4ff;
+  font-family: monospace;
+}
+
+/* Debug panel (optional) */
+#debug {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #00ff00;
+  font-family: monospace;
+  font-size: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  max-width: 300px;
+  display: none;
+}
+
+#debug.visible {
+  display: block;
+}

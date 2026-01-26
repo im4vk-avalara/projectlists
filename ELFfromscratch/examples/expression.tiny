@@ -1,0 +1,4 @@
+# Complex expression with parentheses
+let x = (2 + 3) * (4 + 1)
+# = 5 * 5 = 25
+exit x
