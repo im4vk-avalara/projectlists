@@ -1,0 +1,32 @@
+services:
+  # ===========================================
+  # Security Desktop (Browser-accessible via VNC)
+  # Access at: http://localhost:3000
+  # ===========================================
+  security-desktop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: security-desktop
+    ports:
+      - "3000:3000"   # Web desktop access (noVNC)
+    volumes:
+      - security-data:/config           # Persistent home directory
+      - ./workspace:/config/workspace   # Shared workspace folder
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+      - KEYBOARD=en-us
+      - TITLE=Security Desktop
+    shm_size: "2gb"
+    restart: unless-stopped
+    # Security: Run with additional capabilities for network tools
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    # Optional: Enable if you need to scan local network
+    # network_mode: host
+
+volumes:
+  security-data:
