@@ -1,0 +1,18 @@
+#cloud-config
+users:
+  - name: dev
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - <your-ssh-key>
+
+packages:
+  - build-essential
+  - kmod
+  - linux-headers-generic
+
+package_update: true
+package_upgrade: false
+
+runcmd:
+  - echo "VM ready for kernel dev" > /var/log/kernel-dev-ready.log

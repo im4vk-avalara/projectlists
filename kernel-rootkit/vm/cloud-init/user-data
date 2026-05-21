@@ -1,0 +1,24 @@
+#cloud-config
+# Cloud-init for the shadowfox-lab QEMU x86_64 VM.
+# Provisioned on first boot via the seed.iso NoCloud datasource.
+
+users:
+  - name: researcher
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - <your-ssh-key>
+
+packages:
+  - build-essential
+  - kmod
+  - linux-headers-generic
+  - git
+  - curl
+  - ca-certificates
+
+package_update: true
+package_upgrade: false
+
+runcmd:
+  - echo "shadowfox-lab VM provisioned" > /var/log/shadowfox-lab-ready.log
