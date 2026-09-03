@@ -1,6 +1,0 @@
-// Hello World in ToyLang
-// This is the simplest ToyLang program
-
-fn main() {
-    print("Hello, World!");
-}

@@ -1,1 +1,0 @@
-"""ToyLang compiler tests"""
