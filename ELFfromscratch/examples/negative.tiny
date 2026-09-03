@@ -1,0 +1,6 @@
+# Test negative numbers
+let a = 10
+let b = -5
+let c = a + b
+# 10 + (-5) = 5
+exit c

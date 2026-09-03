@@ -1,0 +1,13 @@
+# Shazam-Style Audio Fingerprinting Demo
+# Install with: pip install -r requirements.txt
+
+# Core dependencies
+numpy>=1.20.0
+scipy>=1.7.0
+matplotlib>=3.4.0
+
+# Audio loading (highly recommended)
+librosa>=0.9.0
+
+# Optional: Better audio backend for librosa
+soundfile>=0.10.0
