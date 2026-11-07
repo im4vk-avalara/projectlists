@@ -1,0 +1,8 @@
+$ resolve assistant.internal.example
+10.42.7.15
+
+$ address-classification 10.42.7.15
+RFC1918 private address; no route from the public internet
+
+$ zone assistant.internal.example
+publicly queryable

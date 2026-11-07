@@ -1,0 +1,42 @@
+{
+  "entrypoints": {
+    "approved-consumer": {
+      "listen": "127.0.0.1:28480",
+      "admission": {
+        "mode": "allowlist",
+        "consumers": [
+          "application-prod"
+        ]
+      },
+      "route_set": "shared-external"
+    },
+    "internal-operations": {
+      "listen": "127.0.0.1:28481",
+      "admission": {
+        "mode": "allowlist",
+        "consumers": [
+          "operations-prod"
+        ]
+      },
+      "route_set": "shared-internal"
+    }
+  },
+  "route_sets": {
+    "shared-external": [
+      {
+        "request_host": "assistant.internal.lab",
+        "service": "assistant-api"
+      }
+    ],
+    "shared-internal": [
+      {
+        "request_host": "workflow.internal.lab",
+        "service": "workflow-api"
+      },
+      {
+        "request_host": "admin.internal.lab",
+        "service": "admin-api"
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+# Sanitized access-plane trace from a successful internal operations request.
+# Request and response bodies unrelated to routing were removed.
+
+> GET /api/v1/sessions HTTP/1.1
+> Host: workflow.internal.lab
+> X-User-ID: operations-reviewer-42
+
+< HTTP/1.1 200 OK
+< X-Lab-Service: workflow-api
+< Content-Type: application/json
+
+{"sessions":[{"id":"session-example","owner":"operations-reviewer-42"}]}
